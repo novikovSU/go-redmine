@@ -8,10 +8,14 @@ import (
 )
 
 type trackersResult struct {
-	Trackers []IdName `json:"trackers"`
+	Trackers []Tracker `json:"trackers"`
 }
 
-func (c *Client) Trackers() ([]IdName, error) {
+// Tracker AAA
+type Tracker IdName
+
+//Trackers AAA
+func (c *Client) Trackers() ([]Tracker, error) {
 	res, err := http.Get(c.endpoint + "/trackers.json?key=" + c.apikey + c.getPaginationClause())
 	if err != nil {
 		return nil, err
