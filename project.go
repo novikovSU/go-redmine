@@ -53,6 +53,19 @@ func (c *Client) Project(id int) (*Project, error) {
 	return &r.Project, nil
 }
 
+func (c *Client) ProjectByIdent(projIdent string) (*Project, error) {
+	projects, err := c.Projects()
+	if err != nil {
+		return nil, err
+	}
+	for _, p := range projects {
+		if p.Identifier == projIdent {
+			return &p, nil
+		}
+	}
+	return nil, nil
+}
+
 func (c *Client) Projects() ([]Project, error) {
 	res, err := c.Get(c.endpoint + "/projects.json?key=" + c.apikey + c.getPaginationClause())
 	if err != nil {
