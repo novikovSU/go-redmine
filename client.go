@@ -10,6 +10,7 @@ import (
 type Client struct {
 	endpoint string
 	apikey   string
+	Atomkey  string
 	*http.Client
 	Limit  int
 	Offset int
@@ -19,7 +20,7 @@ var DefaultLimit int = -1  // "-1" means "No setting"
 var DefaultOffset int = -1 //"-1" means "No setting"
 
 func NewClient(endpoint, apikey string) *Client {
-	return &Client{endpoint, apikey, http.DefaultClient, DefaultLimit, DefaultOffset}
+	return &Client{endpoint, apikey, "", http.DefaultClient, DefaultLimit, DefaultOffset}
 }
 
 // URLWithFilter return string url by concat endpoint, path and filter
