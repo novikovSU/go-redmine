@@ -63,7 +63,7 @@ func (c *Client) ProjectByIdent(projIdent string) (*Project, error) {
 			return &p, nil
 		}
 	}
-	return nil, nil
+	return nil, errors.New("can't find project by identifier")
 }
 
 func (c *Client) Projects() ([]Project, error) {
