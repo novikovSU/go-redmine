@@ -288,6 +288,9 @@ func getOneIssue(c *Client, id int, args map[string]string) (*Issue, error) {
 
 	decoder := json.NewDecoder(res.Body)
 	var r issueRequest
+	if res.StatusCode == 404 {
+		return errors.New("Not Found")
+	}
 	if res.StatusCode/100 != 2 {
 		var er errorsResult
 		err = decoder.Decode(&er)
@@ -310,9 +313,14 @@ func getIssue(c *Client, url string, offset int) (*issuesResult, error) {
 		return nil, err
 	}
 	defer res.Body.Close()
+	
+	fmt.Println("DEBUG: "+res.Body)
 
 	decoder := json.NewDecoder(res.Body)
 	var r issuesResult
+	if res.StatusCode == 404 {
+		return errors.New("Not Found")
+	}
 	if res.StatusCode/100 != 2 {
 		var er errorsResult
 		err = decoder.Decode(&er)
